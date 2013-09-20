@@ -11,15 +11,17 @@ import java.util.HashMap;
  * @author ilmarihu
  */
 public class Users {
+
     HashMap users;
-    
+
     public Users() {
         users = new HashMap();
         users.put("kalanaama", "kalle");
     }
-    
+
     public boolean tarkistaKirjautuminen(String kayttajanimi, String salasana) {
-        if(users.get(salasana) == kayttajanimi ) {
+        String password = users.get(salasana).toString();
+        if (password.equals(kayttajanimi)) {
             return true;
         } else {
             return false;

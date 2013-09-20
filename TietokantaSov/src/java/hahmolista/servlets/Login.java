@@ -24,12 +24,13 @@ public class Login extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         Users u = new Users();
         String kayttajanimi = request.getParameter("username");
+        System.out.println(kayttajanimi);
         String salasana = request.getParameter("password");
-        if(u.tarkistaKirjautuminen(kayttajanimi, salasana)){
-            response.sendRedirect("char");
-            dispatcher.forward(request, response);
+        System.out.println(salasana);
+        if (u.tarkistaKirjautuminen(kayttajanimi, salasana)) {
+            response.sendRedirect("character.jsp");
         } else {
-            request.setAttribute("message", "Väärä käyttäjänimi tai salasana");
+            request.setAttribute("virhe", "Väärä käyttäjänimi tai salasana" + kayttajanimi + " " + salasana);
             dispatcher.forward(request, response);
         }
     }

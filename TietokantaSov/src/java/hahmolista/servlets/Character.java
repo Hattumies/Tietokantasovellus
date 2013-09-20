@@ -5,7 +5,7 @@
 package hahmolista.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,10 @@ public class Character extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        /* Luodaan RequestDispatcher-olio, joka osaa näyttää lista.jsp:n */
+        RequestDispatcher dispatcher = request.getRequestDispatcher("character.jsp");
+        /* Pyydetään dispatcher-oliota näyttämään JSP-sivunsa */
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

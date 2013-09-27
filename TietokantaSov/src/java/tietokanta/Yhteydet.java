@@ -28,7 +28,7 @@ public class Yhteydet {
         muodosta();
     }
 
-    public void muodosta() {
+    private void muodosta() {
         try {
             Class.forName("org.postgresql.Driver");
             yhteys = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ilmarihu");

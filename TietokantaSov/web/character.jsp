@@ -8,23 +8,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:tagi title="Etusivu">
-    <h1>Derp</h1>
+<t:tagi title="Characters">
 </t:tagi>
-
-
-<%--
-
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
---%>
+<ul>
+    <c:foreach var ="Character" items = "${characters}">
+        <li><a href="Character?Character=${Character.nimi}"></a></li>
+    </c:foreach>
+</ul>
+<li class="active"><a href="newCharacter.jsp">New Character</a></li>

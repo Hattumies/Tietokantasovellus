@@ -4,10 +4,9 @@
     Author     : Ilmu
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%><%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <t:tagi title="New Character">
-</t:tagi>
 <form action = "NewCharacter" method = "POST">
     Character name: <input type="text" name="character" />
     Player name:<input type="text" name="player" />
@@ -24,3 +23,4 @@
 <p>${error3}</p>
 <p>${error4}</p>
 <p>${error5}</p>
+</t:tagi>

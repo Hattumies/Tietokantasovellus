@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import hahmolista.models.Character;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -21,14 +23,15 @@ public class NewCharacterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
       String name,player,mental,physical,social,template;
+      
       int advantage;
       boolean error = false;
-      name = request.getParameter("name");
+      name = request.getParameter("character");
       player = request.getParameter("player");
-      mental = request.getParameter("player");
-      physical = request.getParameter("player");
-      social = request.getParameter("player");
-      template = request.getParameter("player");
+      mental = request.getParameter("mental");
+      physical = request.getParameter("physical");
+      social = request.getParameter("social");
+      template = request.getParameter("template");
       advantage = Integer.parseInt(request.getParameter("advantage"));
       if (name.isEmpty() || name.length() > 30) {
           request.setAttribute("error1", "Character must have a name of 30 characters or less.");
@@ -41,6 +44,18 @@ public class NewCharacterServlet extends HttpServlet {
           error = true;
       } if (template.length() > 10) {
           request.setAttribute("error4", "Template must be at most 10 characters long.");
+          error = true;
+      } if (error == false) {
+          Character hahmo = new Character(name,player,mental,physical,social,template,advantage);
+          try {
+              hahmo.uusiHahmo();
+          } catch(Exception e) {
+              System.out.println("virhe "+ e.getMessage());
+          }
+          response.sendRedirect("character.jsp");
+      } else {
+          RequestDispatcher dispatcher = request.getRequestDispatcher("newCharacter.jsp");
+          dispatcher.forward(request, response);
       }
     }
 

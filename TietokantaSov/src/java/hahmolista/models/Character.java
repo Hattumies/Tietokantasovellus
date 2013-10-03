@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import tietokanta.Yhteydet;
 
 /**
@@ -48,6 +49,19 @@ public class Character {
         statement.setString(1, nimi);
         statement.executeUpdate();
         yhteys.sulje();
+    }
+    
+    public static ArrayList<Character> haeKaikki() throws Exception{
+        ArrayList<Character> hahmot = new ArrayList();
+        Yhteydet yhteys = new Yhteydet();
+        PreparedStatement statement = yhteys.getYhteys().prepareStatement("SELECT * from characters");
+        ResultSet result = statement.executeQuery();
+        while(result.next()) {
+            Character hahmo = new Character(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6),result.getInt(7));
+            hahmot.add(hahmo);
+        }
+        
+        return hahmot;
     }
     
     public static Character hae(String nimi) throws Exception {

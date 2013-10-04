@@ -23,10 +23,18 @@ public class CharacterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ArrayList<Character> hahmot = new ArrayList();
+        if("search".equals(request.getParameter("searchButton"))) {
+            try {
+            hahmot.add(Character.hae(request.getParameter("charName")));
+            } catch(Exception e) {
+                System.out.println("search: " + e.getMessage());
+            }
+        } else {
         try {
             hahmot = Character.haeKaikki();
         } catch(Exception e) {
-            
+            System.out.println("hae kaikki: " + e.getMessage());
+        }
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("character.jsp");

@@ -9,13 +9,18 @@
 <t:tagi title="New Character">
 <form action = "NewCharacter" method = "POST">
     Character name: <input type="text" name="character" />
+    <br>
     Player name:<input type="text" name="player" />
+    <br>
     Attributes:
     Mental<input type="text" name="mental" />
     Physical<input type="text" name="physical" />
     Social<input type="text" name="social" />
+    <br>
     Template:<input type="text" name="template" />
+    <br>
     Metanormal advantage:<input type="text" name="advantage" />
+    <br>
     <button type = "submit">Submit character information</button>
 </form>
 <p>${error1}</p>

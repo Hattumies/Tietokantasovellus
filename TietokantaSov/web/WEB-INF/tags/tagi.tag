@@ -24,7 +24,7 @@
         <div class="container">
             <h1>Pages</h1>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="panel panel-default">
                         <ul clas="nav">
                             <li class="active"><a href="char">Characters</a></li>
@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <jsp:doBody/>
                 </div>
             </div>

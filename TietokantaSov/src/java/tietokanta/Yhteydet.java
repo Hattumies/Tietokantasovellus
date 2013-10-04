@@ -31,8 +31,9 @@ public class Yhteydet {
     private void muodosta() {
         try {
             Class.forName("org.postgresql.Driver");
-            yhteys = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ilmarihu");
+            yhteys = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ilmarihu", "ilmarihu", "sqldesu");
         } catch (Exception e) {
+            System.out.println("muodostus: " + e.getMessage());
         }
     }
 
@@ -40,6 +41,7 @@ public class Yhteydet {
         try {
             yhteys.close();
         } catch (Exception e) {
+            System.out.println("sulkeminen: " + e.getMessage());
         }
     }
 }

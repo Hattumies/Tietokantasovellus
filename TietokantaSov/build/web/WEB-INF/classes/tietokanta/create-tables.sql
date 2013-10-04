@@ -35,7 +35,7 @@ MeritValue int
 Create Table Characters
 (
 CharacterName varchar(30) PRIMARY KEY,
-Player varchar(30),
+Player varchar(30) REFERENCES Players(Player),
 Mental varchar(10),
 Physical varchar(10),
 Social varchar(10),

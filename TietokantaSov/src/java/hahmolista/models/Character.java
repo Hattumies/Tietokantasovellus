@@ -54,7 +54,7 @@ public class Character {
     public static ArrayList<Character> haeKaikki() throws Exception{
         ArrayList<Character> hahmot = new ArrayList();
         Yhteydet yhteys = new Yhteydet();
-        PreparedStatement statement = yhteys.getYhteys().prepareStatement("SELECT * from characters");
+        PreparedStatement statement = yhteys.getYhteys().prepareStatement("SELECT * from Characters");
         ResultSet result = statement.executeQuery();
         while(result.next()) {
             Character hahmo = new Character(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6),result.getInt(7));

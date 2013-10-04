@@ -27,8 +27,8 @@
                 <div class="col-md-2">
                     <div class="panel panel-default">
                         <ul clas="nav">
-                            <li class="active"><a href="char">Characters</a></li>
-                            <li><a href="player">Players</a></li>
+                            <li class ="active"><a href="char">Characters</a></li>
+                            <li class ="active"><a href="player">Players</a></li>
                             <li><a href="attribute">Attributes</a></li>
                             <li><a href="skill">Skills</a></li>
                             <li><a href="merit">Merits</a></li>

@@ -14,8 +14,8 @@
     <body>
         <h1>Welcome to the login page!</h1>
         <form action="login" method="POST">
-            Käyttäjänimi: <input type="text" name="username" />
-            Salasana: <input type="password" name="password" />
+            Username: <input type="text" name="username" />
+            Password: <input type="password" name="password" />
             <button type="submit">Kirjaudu</button>
         </form>
         <p>${virhe}</p>

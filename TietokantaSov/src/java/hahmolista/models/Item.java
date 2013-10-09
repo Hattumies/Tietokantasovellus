@@ -8,6 +8,6 @@ package hahmolista.models;
  *
  * @author ilmarihu
  */
-public class ItemList {
+public class Item {
     
 }

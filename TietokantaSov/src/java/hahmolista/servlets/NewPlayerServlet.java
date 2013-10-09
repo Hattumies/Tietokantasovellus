@@ -23,7 +23,7 @@ public class NewPlayerServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String name, playerid;
-        boolean error;
+
 
         name = request.getParameter("player");
         playerid = request.getParameter("id");

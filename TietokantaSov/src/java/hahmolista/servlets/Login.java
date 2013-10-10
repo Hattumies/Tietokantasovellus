@@ -4,13 +4,14 @@
  */
 package hahmolista.servlets;
 
-import hahmolista.models.Users;
+import hahmolista.models.Player;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -22,16 +23,20 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
-        Users u = new Users();
+
         String kayttajanimi = request.getParameter("username");
-        System.out.println(kayttajanimi);
         String salasana = request.getParameter("password");
-        System.out.println(salasana);
-        if (u.tarkistaKirjautuminen(kayttajanimi, salasana)) {
+        try{
+        if (Player.haePelaaja(kayttajanimi).getPasswd().equals(salasana)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("kirjautunut", Player.haePelaaja(kayttajanimi));
             response.sendRedirect("character.jsp");
         } else {
             request.setAttribute("virhe", "Väärä käyttäjänimi tai salasana" + kayttajanimi + " " + salasana);
             dispatcher.forward(request, response);
+        }
+        } catch(Exception e) {
+            System.out.println("kirjautuminen: " + e.getMessage());
         }
     }
 

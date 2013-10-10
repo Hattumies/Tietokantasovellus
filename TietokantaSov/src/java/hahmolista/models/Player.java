@@ -15,7 +15,9 @@ import tietokanta.Yhteydet;
  */
 public class Player {
 
-    String name, id, passwd;
+    private String name;
+    private String id;
+    private String passwd;
 
     public Player(String name, String id, String passwd) {
         this.name = name;
@@ -26,8 +28,8 @@ public class Player {
     public void uusiPelaaja() throws Exception {
         Yhteydet yhteys = new Yhteydet();
         PreparedStatement statement = yhteys.getYhteys().prepareStatement("INSERT INTO Players(Player(Player, PlayerId, Passwd) VALUES(?,?)");
-        statement.setString(1, name);
-        statement.setString(2, id);
+        statement.setString(1, getName());
+        statement.setString(2, getId());
         statement.executeUpdate();
         yhteys.sulje();
     }
@@ -35,9 +37,9 @@ public class Player {
     public void poistaPelaaja() throws Exception{
         Yhteydet yhteys = new Yhteydet();
         PreparedStatement statement = yhteys.getYhteys().prepareStatement("DELETE FROM Players(Player(Player, PlayerId, Passwd) where VALUES(?,?,?)");
-        statement.setString(1, name);
-        statement.setString(2, id);
-        statement.setString(3, passwd);
+        statement.setString(1, getName());
+        statement.setString(2, getId());
+        statement.setString(3, getPasswd());
         statement.executeUpdate();
         yhteys.sulje();
     }
@@ -71,5 +73,47 @@ public class Player {
         }
         
         return players;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the passwd
+     */
+    public String getPasswd() {
+        return passwd;
+    }
+
+    /**
+     * @param passwd the passwd to set
+     */
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 }

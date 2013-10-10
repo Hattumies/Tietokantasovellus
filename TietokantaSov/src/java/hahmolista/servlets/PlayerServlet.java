@@ -12,28 +12,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import hahmolista.models.Player;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Ilmu
  */
-public class PlayerServlet extends HttpServlet {
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+public class PlayerServlet extends TemplateServlet {
+    
+    @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        if(!tarkistaKirjautuminen(request)){
+            response.sendRedirect("login");
+        }
+        
         ArrayList<Player> players = new ArrayList();
         try {
             players = Player.haeKaikkiPelaajat();
+            request.setAttribute("players", players);
         } catch(Exception e) {
             System.out.println("Hae kaikki: " + e.getMessage());
         }
@@ -41,6 +40,8 @@ public class PlayerServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("player.jsp");
         dispatcher.forward(request, response);
     }
+    
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

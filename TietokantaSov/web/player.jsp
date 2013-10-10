@@ -11,8 +11,8 @@
 <t:tagi title="Players">
     <ul>
         <c:forEach var = "Player" items = "${players}">
-            <li><a href ="Player?Player=${Player.Player}">${Player.Player}</a></li>
-            <li><a href ="Player?Player=${Player.Player}">${Player.Player}</a></li>
+            <div class ="Player">${Player.name}</div>
+            <div class ="Player">${Player.id}</div>
             <br>
         </c:forEach>
     </ul>

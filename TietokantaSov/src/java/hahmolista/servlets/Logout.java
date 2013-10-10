@@ -5,54 +5,28 @@
 package hahmolista.servlets;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import hahmolista.models.Character;
-import hahmolista.models.Player;
-import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ilmarihu
+ * @author Ilmu
  */
-public class CharacterServlet extends TemplateServlet {
+public class Logout extends HttpServlet {
 
-    @Override
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        if(!tarkistaKirjautuminen(request)) {
-            response.sendRedirect("login");
-        }
+        HttpSession session = request.getSession();
+        session.removeAttribute("kirjautunut");
         
-        ArrayList<Character> hahmot = new ArrayList();
-        //Etsitään hahmoa
-        if("search".equals(request.getParameter("searchButton"))) {
-            try {
-            hahmot.add(Character.hae(request.getParameter("charName")));
-            } catch(Exception e) {
-                System.out.println("search: " + e.getMessage());
-            }
-        //Tulostetaan hahmot tietokannasta    
-        } else {
-        try {
-            hahmot = Character.haeKaikki();
-            request.setAttribute("hahmot", hahmot);
-        } catch(Exception e) {
-            System.out.println("hae kaikki: " + e.getMessage());
-        }
-        }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("character.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("login");
     }
-    
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

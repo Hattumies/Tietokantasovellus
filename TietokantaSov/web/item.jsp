@@ -9,9 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:tagi title="Items">
        <ul>
-        <c:forEach var = "Player" items = "${items}">
-            <li><a href ="Item?Item=${Items.ItemName}">${Items.ItemName}</a></li>
-            <li><a href ="Item?Item=${Items.CharacterName}">${Items.CharacterName}</a></li>
+        <c:forEach var = "Item" items = "${items}">
+            <div class ="Item">${Item.item}</div>
+            <div class ="Item">${Item.owner}</div>
             <br>
         </c:forEach>
     </ul>

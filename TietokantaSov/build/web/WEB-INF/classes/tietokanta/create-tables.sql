@@ -2,7 +2,8 @@
 Create Table Players
 (
 Player varchar(30) PRIMARY KEY,
-PlayerId varchar(30)
+PlayerId varchar(30),
+Passwd varchar(30)
 );
 
 Create Table Characters

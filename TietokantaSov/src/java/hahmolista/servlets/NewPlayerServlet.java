@@ -22,14 +22,15 @@ public class NewPlayerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name, playerid;
+        String name, playerid, passwd;
 
 
         name = request.getParameter("player");
         playerid = request.getParameter("id");
+        passwd = request.getParameter("passwd");
 
-        if (!tarkistaVirheet(name, playerid, request)) {
-            Player player = new Player(name, playerid);
+        if (!tarkistaVirheet(name, playerid, passwd, request)) {
+            Player player = new Player(name, playerid, passwd);
             try {
                 player.uusiPelaaja();
             } catch(Exception e) {
@@ -42,7 +43,8 @@ public class NewPlayerServlet extends HttpServlet {
 
     }
 
-    protected boolean tarkistaVirheet(String name, String id, HttpServletRequest request) {
+    //Tarkistetaan onko kenttiin syötetty virheellistä tietoa.
+    protected boolean tarkistaVirheet(String name, String id, String passwd, HttpServletRequest request) {
         boolean error = false;
         if (name.isEmpty() || name.length() > 30) {
             request.setAttribute("error1", "Player must have a name of 30 characters or less.");
@@ -50,6 +52,10 @@ public class NewPlayerServlet extends HttpServlet {
         }
         if (id.isEmpty() || id.length() > 30) {
             request.setAttribute("error2", "Player must have an id that is at most 30 characters long");
+            error = true;
+        }
+        if (passwd.isEmpty() || passwd.length() > 30) {
+            request.setAttribute("error3", "Player must have a password that is at most 30 characters long");
             error = true;
         }
 

@@ -35,6 +35,7 @@ public class CharacterServlet extends HttpServlet {
         } else {
         try {
             hahmot = Character.haeKaikki();
+            request.setAttribute("hahmot", hahmot);
         } catch(Exception e) {
             System.out.println("hae kaikki: " + e.getMessage());
         }

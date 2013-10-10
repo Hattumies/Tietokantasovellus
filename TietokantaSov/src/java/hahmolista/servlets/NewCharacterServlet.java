@@ -22,9 +22,8 @@ public class NewCharacterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      String name,player,mental,physical,social,template;
+      String name,player,mental,physical,social,template, advantage;
       
-      int advantage;
       boolean error = false;
       name = request.getParameter("character");
       player = request.getParameter("player");
@@ -32,7 +31,7 @@ public class NewCharacterServlet extends HttpServlet {
       physical = request.getParameter("physical");
       social = request.getParameter("social");
       template = request.getParameter("template");
-      advantage = Integer.parseInt(request.getParameter("advantage"));
+      advantage = request.getParameter("advantage");
       
       //Tarkastetaan virheet lomakkeessa
       if (name.isEmpty() || name.length() > 30) {
@@ -47,8 +46,12 @@ public class NewCharacterServlet extends HttpServlet {
       } if (template.length() > 10 || template.isEmpty()) {
           request.setAttribute("error4", "Template must be at most 10 characters long.");
           error = true;
-      } if (error == false) {
-          Character hahmo = new Character(name,player,mental,physical,social,template,advantage);
+      } if (advantage.isEmpty() || Integer.parseInt(advantage) > 10) {
+          request.setAttribute("error5", "Character must have metanormal advantage score of 0-10.");
+          error = true;
+      }
+      if (error == false) {
+          Character hahmo = new Character(name,player,mental,physical,social,template,Integer.parseInt(advantage));
           try {
               hahmo.uusiHahmo();
           } catch(Exception e) {

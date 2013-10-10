@@ -1,3 +1,7 @@
-INSERT INTO table_name ( field1, field2,...fieldN )
+INSERT INTO Players ( Player, PlayerId, Passwd )
                        VALUES
-                       ( value1, value2,...valueN );
+                       ( 'Misa', 'Mazzy', 'deadrabbits');
+
+INSERT INTO Characters ( CharacterName, Player, Mental, Physical, Social, template, MetanormalAdvantage )
+                       VALUES
+                       ( 'Alexander', 'Misa', '1/1/1', '1/1/1', '1/1/1', 'Genius', 1);

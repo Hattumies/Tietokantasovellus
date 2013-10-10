@@ -24,6 +24,10 @@
         <servlet-name>ItemServlet</servlet-name>
         <servlet-class>hahmolista.servlets.ItemServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewItemServlet</servlet-name>
+        <servlet-class>hahmolista.servlets.NewItemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Character</servlet-name>
         <url-pattern>/char</url-pattern>
@@ -46,7 +50,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ItemServlet</servlet-name>
-        <url-pattern>/Item</url-pattern>
+        <url-pattern>/item</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewItemServlet</servlet-name>
+        <url-pattern>/newItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

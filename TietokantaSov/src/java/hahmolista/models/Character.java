@@ -23,6 +23,7 @@ public class Character {
         this.nimi = nimi;
         this.pelaaja = pelaaja;
         this.mental = mental;
+        this.physical = physical;
         this.social = social;
         this.template = template;
         this.advantage = advantage;
@@ -31,7 +32,7 @@ public class Character {
     
     public void uusiHahmo() throws SQLException {
         Yhteydet yhteydet = new Yhteydet();
-        PreparedStatement statement = yhteydet.getYhteys().prepareStatement("INSERT INTO Characters(CharacterName, Player, Mental, Physical, Social, Template, MetanormalAdvantage) VALUES(?,?,?,?,?,?,?))");
+        PreparedStatement statement = yhteydet.getYhteys().prepareStatement("INSERT INTO Characters(CharacterName, Player, Mental, Physical, Social, Template, MetanormalAdvantage) VALUES(?,?,?,?,?,?,?)");
         statement.setString(1, nimi);
         statement.setString(2, pelaaja);
         statement.setString(3, mental);
@@ -60,7 +61,7 @@ public class Character {
             Character hahmo = new Character(result.getString(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5),result.getString(6),result.getInt(7));
             hahmot.add(hahmo);
         }
-        
+        yhteys.sulje();
         return hahmot;
     }
     

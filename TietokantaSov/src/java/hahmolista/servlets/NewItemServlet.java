@@ -4,10 +4,8 @@
  */
 package hahmolista.servlets;
 
-import hahmolista.models.Item;
 import java.io.IOException;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,34 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ilmu
+ * @author ilmarihu
  */
-public class ItemServlet extends HttpServlet {
+public class NewItemServlet extends HttpServlet {
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Item> items = new ArrayList();
+        response.setContentType("text/html;charset=UTF-8");
         
-        //Etsitään esinettä
-        if("search".equals(request.getParameter("searchButton"))) {
-            try {
-            items.add(hahmolista.models.Item.hae(request.getParameter("item")));
-            } catch(Exception e) {
-                System.out.println("search: " + e.getMessage());
-            }
-        //Tulostetaan esineet tietokannasta    
-        } else {
-        try {
-            items = hahmolista.models.Item.haeKaikki();
-        } catch(Exception e) {
-            System.out.println("hae kaikki: " + e.getMessage());
-        }
-        }
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("item.jsp");
-        dispatcher.forward(request, response);
-        
- 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

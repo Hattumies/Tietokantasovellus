@@ -12,13 +12,13 @@
 <t:tagi title="Characters">
 <ul>
     <c:forEach var ="Character" items = "${hahmot}">
-        <li><a href="Character?Character=${Character.nimi}">${Character.nimi}</a></li>
-        <li><a href="Character?Character=${Character.pelaaja}">${Character.pelaaja}</a></li>
-        <li><a href="Character?Character=${Character.mental}">${Character.mental}</a></li>
-        <li><a href="Character?Character=${Character.physical}">${Character.physical}</a></li>
-        <li><a href="Character?Character=${Character.social}">${Character.social}</a></li>
-        <li><a href="Character?Character=${Character.template}">${Character.template}</a></li>
-        <li><a href="Character?Character=${Character.advantage}">${Character.advantage}</a></li>
+        <div class ="Character">{Character.CharacterName}</div>
+        <div class ="Character">{Character.player}</div>
+        <div class ="Character">{Character.mental}</div>
+        <div class ="Character">{Character.physical}</div>
+        <div class ="Character">{Character.social}</div>
+        <div class ="Character">{Character.template}</div>
+        <div class ="Character">{Character.advantage}</div>
         <br>
     </c:forEach>
 </ul>

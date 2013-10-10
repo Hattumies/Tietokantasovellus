@@ -33,16 +33,18 @@ public class NewCharacterServlet extends HttpServlet {
       social = request.getParameter("social");
       template = request.getParameter("template");
       advantage = Integer.parseInt(request.getParameter("advantage"));
+      
+      //Tarkastetaan virheet lomakkeessa
       if (name.isEmpty() || name.length() > 30) {
           request.setAttribute("error1", "Character must have a name of 30 characters or less.");
           error = true;
       } if (player.isEmpty() || player.length() > 30) {
            request.setAttribute("error2", "Player must have a name of 30 characters or less.");
           error = true;
-      } if (mental.length() < 5 || mental.length() > 10 || physical.length() < 5 || physical.length() > 10 || social.length() < 5 || social .length() > 10) {
+      } if (mental.length() < 5 || mental.length() > 10 || physical.length() < 5 || physical.length() > 10 || social.length() < 5 || social .length() > 10 || mental.isEmpty() || physical.isEmpty() || social.isEmpty()) {
           request.setAttribute("error3", "All attritibutes must be atleast 5 characters long and 10 at most.");
           error = true;
-      } if (template.length() > 10) {
+      } if (template.length() > 10 || template.isEmpty()) {
           request.setAttribute("error4", "Template must be at most 10 characters long.");
           error = true;
       } if (error == false) {

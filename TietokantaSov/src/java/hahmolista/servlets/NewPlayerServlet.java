@@ -17,30 +17,35 @@ import javax.servlet.RequestDispatcher;
  *
  * @author Ilmu
  */
-public class NewPlayerServlet extends HttpServlet {
+public class NewPlayerServlet extends TemplateServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String name, playerid, passwd;
 
-
-        name = request.getParameter("player");
-        playerid = request.getParameter("id");
-        passwd = request.getParameter("passwd");
-
-        if (!tarkistaVirheet(name, playerid, passwd, request)) {
-            Player player = new Player(name, playerid, passwd);
-            try {
-                player.uusiPelaaja();
-            } catch(Exception e) {
-                   System.out.println("Uusi pelaaja: " + e.getMessage());
-            }
+        if (!tarkistaKirjautuminen(request)) {
+            response.sendRedirect("login.jsp");
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("newPlayer.jsp");
-            dispatcher.forward(request, response);
-        }
 
+
+            name = request.getParameter("player");
+            playerid = request.getParameter("id");
+            passwd = request.getParameter("password");
+
+            if (!tarkistaVirheet(name, playerid, passwd, request)) {
+                Player player = new Player(name, playerid, passwd);
+                try {
+                    player.uusiPelaaja();
+                } catch (Exception e) {
+                    System.out.println("Uusi pelaaja: " + e.getMessage());
+                }
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("newPlayer.jsp");
+                dispatcher.forward(request, response);
+            }
+
+        }
     }
 
     //Tarkistetaan onko kenttiin syötetty virheellistä tietoa.

@@ -24,20 +24,25 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 
+
+        //Testauksessa voi käyttää käyttäjänimeä Misa ja salasanaa deadrabbits
         String kayttajanimi = request.getParameter("username");
         String salasana = request.getParameter("password");
-        try{
-        if (Player.haePelaaja(kayttajanimi).getPasswd().equals(salasana)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("kirjautunut", Player.haePelaaja(kayttajanimi));
-            response.sendRedirect("character.jsp");
-        } else {
-            request.setAttribute("virhe", "Väärä käyttäjänimi tai salasana" + kayttajanimi + " " + salasana);
-            dispatcher.forward(request, response);
-        }
-        } catch(Exception e) {
+
+        try {
+            if (Player.haePelaaja(kayttajanimi).getPasswd().equals(salasana)) {
+                HttpSession session = request.getSession();
+                session.setAttribute("kirjautunut", Player.haePelaaja(kayttajanimi));
+                response.sendRedirect("character.jsp");
+            } else {
+                request.setAttribute("virhe", "Väärä käyttäjänimi tai salasana");
+                dispatcher.forward(request, response);
+            }
+        } catch (Exception e) {
             System.out.println("kirjautuminen: " + e.getMessage());
         }
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

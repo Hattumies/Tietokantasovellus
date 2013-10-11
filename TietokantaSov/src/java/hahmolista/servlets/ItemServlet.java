@@ -24,36 +24,45 @@ public class ItemServlet extends TemplateServlet {
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        if(!tarkistaKirjautuminen(request)) {
-            response.sendRedirect("login");
-        }
-        
-        ArrayList<Item> items = new ArrayList();
-        
-        //Etsitään esinettä
-        if("search".equals(request.getParameter("searchButton"))) {
-            try {
-            items.add(hahmolista.models.Item.hae(request.getParameter("item")));
-            } catch(Exception e) {
-                System.out.println("search: " + e.getMessage());
-            }
-        //Tulostetaan esineet tietokannasta    
-        } else {
-        try {
-            items = hahmolista.models.Item.haeKaikki();
-        } catch(Exception e) {
-            System.out.println("hae kaikki: " + e.getMessage());
-        }
-        }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("item.jsp");
-        dispatcher.forward(request, response);
-        
- 
+        if (!tarkistaKirjautuminen(request)) {
+            response.sendRedirect("login.jsp");
+        } else {
+
+            ArrayList<Item> items = new ArrayList();
+
+            //Etsitään esinettä
+            if ("search".equals(request.getParameter("searchButton"))) {
+                try {
+                    items.add(hahmolista.models.Item.hae(request.getParameter("item")));
+                } catch (Exception e) {
+                    System.out.println("search: " + e.getMessage());
+                }
+                //Tulostetaan esineet tietokannasta    
+            } else if("delete".equals(request.getParameter("deleteButton"))) {
+                try {
+                    Item item = Item.hae(request.getParameter("item"));
+                    Item.poistaItem(request.getParameter("item"));
+                    items.remove(item);
+                } catch(Exception e) {
+                    System.out.println("delete item: " + e.getMessage());
+                }
+            } 
+            else {
+                try {
+                    items = hahmolista.models.Item.haeKaikki();
+                } catch (Exception e) {
+                    System.out.println("hae kaikki: " + e.getMessage());
+                }
+            }
+
+            request.setAttribute("items", items);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("item.jsp");
+            dispatcher.forward(request, response);
+
+
+        }
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

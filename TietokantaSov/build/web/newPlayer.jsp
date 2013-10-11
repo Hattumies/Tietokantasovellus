@@ -13,6 +13,8 @@
         <br>
         Player id: <input type="text" name="id" />
         <br>
+        Password: <input type="password" name="password" />
+        <br>
         <button type ="submit">Submit</button>
     </form>
     <p>${error1}</p>

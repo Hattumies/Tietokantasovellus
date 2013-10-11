@@ -25,34 +25,43 @@ public class CharacterServlet extends TemplateServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        if(!tarkistaKirjautuminen(request)) {
-            response.sendRedirect("login");
-        }
-        
-        ArrayList<Character> hahmot = new ArrayList();
-        //Etsitään hahmoa
-        if("search".equals(request.getParameter("searchButton"))) {
-            try {
-            hahmot.add(Character.hae(request.getParameter("charName")));
-            } catch(Exception e) {
-                System.out.println("search: " + e.getMessage());
-            }
-        //Tulostetaan hahmot tietokannasta    
-        } else {
-        try {
-            hahmot = Character.haeKaikki();
-            request.setAttribute("hahmot", hahmot);
-        } catch(Exception e) {
-            System.out.println("hae kaikki: " + e.getMessage());
-        }
-        }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("character.jsp");
-        dispatcher.forward(request, response);
+        if (!tarkistaKirjautuminen(request)) {
+            response.sendRedirect("login.jsp");
+        } else {
+
+            ArrayList<Character> hahmot = new ArrayList();
+            //Etsitään hahmoa
+            if ("search".equals(request.getParameter("searchButton"))) {
+                try {
+                    hahmot.add(Character.hae(request.getParameter("charName")));
+                } catch (Exception e) {
+                    System.out.println("search: " + e.getMessage());
+                }
+            //Poistetaan hahmo tietokannasta
+            } else if("delete".equals(request.getParameter("deleteButton")))  {
+                try {
+                Character hahmo = Character.hae(request.getParameter("charName"));
+                Character.poistaHahmo(request.getParameter("charName"));
+                hahmot.remove(hahmo);
+                } catch(Exception e) {
+                    System.out.println("delete: " + e.getMessage());
+                }
+                
+                //Tulostetaan hahmot tietokannasta  
+            } else {
+                try {
+                    hahmot = Character.haeKaikki();
+
+                } catch (Exception e) {
+                    System.out.println("hae kaikki: " + e.getMessage());
+                }
+            }
+            request.setAttribute("hahmot", hahmot);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("character.jsp");
+            dispatcher.forward(request, response);
+        }
     }
-    
-   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

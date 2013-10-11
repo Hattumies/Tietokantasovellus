@@ -62,7 +62,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NewItemServlet</servlet-name>
-        <url-pattern>/newItem</url-pattern>
+        <url-pattern>/NewItem</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TemplateServlet</servlet-name>

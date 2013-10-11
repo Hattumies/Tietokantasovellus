@@ -27,33 +27,41 @@ public class Player {
 
     public void uusiPelaaja() throws Exception {
         Yhteydet yhteys = new Yhteydet();
-        PreparedStatement statement = yhteys.getYhteys().prepareStatement("INSERT INTO Players(Player(Player, PlayerId, Passwd) VALUES(?,?)");
-        statement.setString(1, getName());
-        statement.setString(2, getId());
-        statement.executeUpdate();
-        yhteys.sulje();
-    }
-
-    public void poistaPelaaja() throws Exception{
-        Yhteydet yhteys = new Yhteydet();
-        PreparedStatement statement = yhteys.getYhteys().prepareStatement("DELETE FROM Players(Player(Player, PlayerId, Passwd) where VALUES(?,?,?)");
+        PreparedStatement statement = yhteys.getYhteys().prepareStatement("INSERT INTO Players(Player, PlayerId, Passwd) VALUES(?,?,?)");
         statement.setString(1, getName());
         statement.setString(2, getId());
         statement.setString(3, getPasswd());
         statement.executeUpdate();
         yhteys.sulje();
     }
+
+    public static void poistaPelaaja(String player) {
+        Yhteydet yhteys = new Yhteydet();
+        try {
+        PreparedStatement statement = yhteys.getYhteys().prepareStatement("DELETE FROM Players where Player =?");
+        statement.setString(1, player);
+        statement.executeUpdate();
+        } catch(Exception e) {
+            System.out.println("poista pelaaja: " + e.getMessage());
+        }
+        yhteys.sulje();
+    }
     
     public static Player haePelaaja(String name) throws Exception{
         Yhteydet yhteys = new Yhteydet();
-        PreparedStatement statement = yhteys.getYhteys().prepareStatement("SELECT * FROM Players(Player(Player, PlayerId, Passwd) where PlayerName = ?");
-        statement.setString(1, name);
         Player player = null;
+        try {
+        PreparedStatement statement = yhteys.getYhteys().prepareStatement("SELECT * FROM Players where Player = ?");
+        statement.setString(1, name);
+        
         if(statement.execute()) {
-            ResultSet result = statement.getResultSet();
+            ResultSet result = statement.executeQuery();
             if(result.next()) {
                 player = new Player(result.getString(1), result.getString(2), result.getString(3));
             }
+        }
+        } catch(Exception e) {
+            System.out.println("Hae pelaaja: " + e.getMessage());
         }
         yhteys.sulje();
         if(player == null) {

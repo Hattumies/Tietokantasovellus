@@ -12,13 +12,13 @@
     <ul>
         <c:forEach var = "Player" items = "${players}">
             <div class ="Player">${Player.name}</div>
-            <div class ="Player">${Player.id}</div>
             <br>
         </c:forEach>
     </ul>
-    <form action ="search" method ="POST">
+    <form action ="player" method ="POST">
         <input type ="text" name ="playerName"/>
-        <Button type ="submit" name ="searchButton" value ="searchPlayer">search</button>
+        <Button type ="submit" name ="searchButton" value ="search">Search</button>
+        <Button type ="submit" name ="deleteButton" value ="delete">Delete</button>
     </form>
     <li class ="active" ><a href="newPlayer.jsp" >New Player</a></li>
 </t:tagi>

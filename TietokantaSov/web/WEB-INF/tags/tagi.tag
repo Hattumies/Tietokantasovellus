@@ -33,6 +33,7 @@
                             <li><a href="skill">Skills</a></li>
                             <li><a href="merit">Merits</a></li>
                             <li class ="active"><a href="item">Items</a></li>
+                            <li class ="active"><a href ="logout">Logout</a></li>
                         </ul>
                     </div>
                 </div>

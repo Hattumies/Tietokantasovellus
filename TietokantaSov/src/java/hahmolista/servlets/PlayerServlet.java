@@ -19,29 +19,48 @@ import javax.servlet.http.HttpSession;
  * @author Ilmu
  */
 public class PlayerServlet extends TemplateServlet {
-    
+
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        if(!tarkistaKirjautuminen(request)){
-            response.sendRedirect("login");
-        }
-        
-        ArrayList<Player> players = new ArrayList();
-        try {
-            players = Player.haeKaikkiPelaajat();
+
+        //Tarkastetaan onko käyttäjä kirjautunut palveluun
+        if (!tarkistaKirjautuminen(request)) {
+            response.sendRedirect("login.jsp");
+        } else {
+            ArrayList<Player> players = new ArrayList();
+            //Etsitään pelaaja
+            if ("search".equals(request.getParameter("searchButton"))) {
+                try {
+                    players.add(Player.haePelaaja(request.getParameter("playerName")));
+                } catch (Exception e) {
+                    System.out.println("hae pelaajaa: " + e.getMessage());
+                }
+                //Poistetaan pelaaja
+            } else if ("delete".equals(request.getParameter("deleteButton"))) {
+                try {
+                    Player player = Player.haePelaaja(request.getParameter("playerName"));
+                    Player.poistaPelaaja(request.getParameter("playerName"));
+                    players.remove(player);
+                } catch (Exception e) {
+                    System.out.println("poista pelaaja: " + e.getMessage());
+                }
+                //Tulostetaan kaikki pelaajat
+            } else {
+
+                try {
+                    players = Player.haeKaikkiPelaajat();
+                } catch (Exception e) {
+                    System.out.println("Hae kaikki: " + e.getMessage());
+                }
+            }
+
             request.setAttribute("players", players);
-        } catch(Exception e) {
-            System.out.println("Hae kaikki: " + e.getMessage());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("player.jsp");
+            dispatcher.forward(request, response);
         }
-       
-        RequestDispatcher dispatcher = request.getRequestDispatcher("player.jsp");
-        dispatcher.forward(request, response);
     }
-    
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

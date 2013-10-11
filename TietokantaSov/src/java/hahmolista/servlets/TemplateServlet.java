@@ -19,22 +19,25 @@ import javax.servlet.http.HttpSession;
  */
 public class TemplateServlet extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+
     }
-    
-     public static Boolean tarkistaKirjautuminen(HttpServletRequest request) {
+
+    public static Boolean tarkistaKirjautuminen(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String playerName = "";
-        Player player = (Player)session.getAttribute("kirjautunut");
+        String playerName = null;
+        Player player = null;
+        if(session.getAttribute("kirjautunut") != null) {
+        player = (Player) session.getAttribute("kirjautunut");
         playerName = player.getName();
-        if(playerName.isEmpty()) {
-            return false;
         }
-        return true;
+        
+        if (playerName != null) {
+            return true;
+        }
+        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

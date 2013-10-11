@@ -9,9 +9,13 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:tagi title="New Item">
-    Item name: <input type="text" name="item" />
-    <br>
-    Owner: <input type="text" name="owner" />
-    <br>
-    <button type ="submit">Submit</button>
+    <form action ="NewItem" method ="POST">
+        Item name: <input type="text" name="item" />
+        <br>
+        Owner: <input type="text" name="owner" />
+        <br>
+        <button type ="submit">Submit</button>
+    </form>
+    <p>${error1}</p>
+    <p>${error2}</p>
 </t:tagi>
